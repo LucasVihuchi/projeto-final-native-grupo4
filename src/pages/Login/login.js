@@ -1,5 +1,5 @@
 // sem validação
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {View, Text, Image, SafeAreaView, TextInput, TouchableOpacity, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFormik } from 'formik';
@@ -51,7 +51,7 @@ const Login = ({navigation}) => {
       return response.data;
     } catch (error) {
       return null;
-    };
+    }
   }
 
   const formik = useFormik({
