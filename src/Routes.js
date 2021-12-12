@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import MinhaConta from './pages/MinhaConta/Home';
+import Login from './pages/Login/Login'
 
 const Stack = createNativeStackNavigator();
 
@@ -28,18 +29,6 @@ function Home({ navigation }) {
       <Button
         title="Cadastro Usuario"
         onPress={() => navigation.navigate('CadastroUsuario')}
-      />
-    </View>
-  );
-}
-
-function Login({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Login - Trocar pela página criada</Text>
-      <Button
-        title="Voltar para Home"
-        onPress={() => navigation.navigate('Home')}
       />
     </View>
   );

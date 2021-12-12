@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {View, Text, Image, SafeAreaView, TextInput, TouchableOpacity} from 'react-native';
 import styles from './styles';
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [nomeUsuario, setnomeUsuario] = useState('');
   const [senha, setSenha] = useState('');
 
@@ -37,7 +37,7 @@ const Login = () => {
         </TouchableOpacity>
 
         <Text style={styles.frase}> Ainda não tem cadastro? </Text>
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => {navigation.navigate('CadastroUsuario')}}>
           <Text style={styles.fraseLink}>Clipe para sua conta!</Text>
         </TouchableOpacity>
       </View>
