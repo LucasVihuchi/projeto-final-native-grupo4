@@ -82,6 +82,7 @@ const Login = ({navigation}) => {
           style={styles.inputFormulario}
           onChangeText={formik.handleChange('nomeUsuario')}
           onBlur={formik.handleBlur('nomeUsuario')}
+          keyboardType={'email-address'}
           value={formik.values.nomeUsuario}          
           placeholder="Digite seu nome de usuário aqui"
         />
@@ -94,6 +95,7 @@ const Login = ({navigation}) => {
           style={styles.inputFormulario}
           onChangeText={formik.handleChange('senha')}
           onBlur={formik.handleBlur('senha')}
+          secureTextEntry={true}
           value={formik.values.senha}  
           placeholder="Digite sua senha"
         />
