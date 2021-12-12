@@ -10,7 +10,7 @@ function ItemMenuMinhaConta({dados, chave, secaoAtiva, handleSetSecaoAtiva}) {
         secaoAtiva === chave
           ? styles.containerItemMenuAtivo
           : styles.containerItemMenu,
-        (chave + 1) % 3 == 0 ? {marginRight: 0} : {marginRight: 32},
+        (chave) % 3 == 0 ? {marginRight: 0} : {marginRight: 32},
       ]}>
       <Image source={dados.imagem} style={secaoAtiva === chave
           ? styles.imagemItemMenuAtivo

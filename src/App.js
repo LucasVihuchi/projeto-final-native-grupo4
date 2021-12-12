@@ -1,12 +1,12 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
-import MinhaConta from './pages/MinhaConta/Home';
+import ContextoCredenciais from './context/credenciais';
+import Routes from './Routes';
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <MinhaConta />
-    </SafeAreaView>
+    <ContextoCredenciais>
+      <Routes />
+    </ContextoCredenciais>
   );
 };
 

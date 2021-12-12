@@ -8,7 +8,7 @@ const styles = StyleSheet.create ({
         borderRadius: 8,
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 5
+        elevation: 7
     },
     containerItemMenuAtivo: {
         backgroundColor: '#121B2E',

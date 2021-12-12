@@ -12,7 +12,7 @@ function MenuMinhaConta({secaoAtiva, handleSetSecaoAtiva}) {
         style={styles.menuItemLista}
         data={menuMinhaContaData}
         renderItem={({item, index}) => (
-          <ItemMenuMinhaConta dados={item} chave={index} secaoAtiva={secaoAtiva} handleSetSecaoAtiva={handleSetSecaoAtiva} />
+          <ItemMenuMinhaConta dados={item} chave={(index+1)} secaoAtiva={secaoAtiva} handleSetSecaoAtiva={handleSetSecaoAtiva} />
         )}
         ItemSeparatorComponent={() => <View style={styles.separadorMenu} />}
       />
