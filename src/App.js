@@ -1,15 +1,12 @@
 import React from 'react';
-// import {SafeAreaView, Text} from 'react-native';
-import Login from './pages/Login/login';
-
-
+import ContextoCredenciais from './context/credenciais';
+import Routes from './Routes';
 
 const App = () => {
   return (
-      <Login />
-    // <SafeAreaView>
-    //   <Text>Insira seu código aqui</Text>
-    // </SafeAreaView>
+    <ContextoCredenciais>
+      <Routes />
+    </ContextoCredenciais>
   );
 };
 
