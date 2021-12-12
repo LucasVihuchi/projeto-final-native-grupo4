@@ -3,77 +3,82 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   
   container:{
-    paddingHorizontal:15,
+    paddingHorizontal: "5%",
     fontFamily:'Montserrat'
     
   },
   containerPerfil: {
-    marginTop: 100,
+    marginTop: 146,
     justifyContent: 'flex-start',
+    alignItems: 'center',
     flexDirection: 'row',
   },
 
   imagemPerfil: {
-    marginTop: 10,
-    width: 50,
-    height: 50,
+    width: 42,
+    height: 42,
   },
 
   title: {
-    fontSize: 50,
-    fontWeight: '500',
-    fontWeight: "bold",
+    marginLeft: 16,
+    fontSize: 48,
+    fontWeight: '700',
     color: 'black'
   },
   
   formulario: {
-    marginTop: 20,
+    marginVertical: 26,
     justifyContent: 'flex-start',
     
   },
   titleFormulario:{
-    marginTop: 10,
-    fontSize: 15,
-    color: "black",
-    fontFamily:'Montserrat'
+    fontSize: 24,
+    color: "#000",
+    fontWeight: '400',
+    fontFamily:'Montserrat',
+    marginTop: 10
   },
 
   inputFormulario: {
     width: '100%',
-    height: 40,
-    marginTop:10,
-    borderWidth: 1,
-    padding: 10,
+    fontSize: 24,
+    marginTop: 8,
+    marginBottom: 4,
+    paddingVertical: 7,
+    paddingHorizontal: 12,
     borderRadius: 8,
     backgroundColor: '#D1D1D1',
     fontFamily:'Montserrat'
-    
   },
   buttonEntrar: {
     width: '100%',
-    height: 50,
-    justifyContent: 'center',
     backgroundColor: '#01091D',
+    justifyContent: 'center',
+    paddingVertical: 6, 
     borderRadius: 10,
-    marginVertical: 15,
-    
-    
+    marginVertical: 26,
   },
   buttonText: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 24,
     color:'#FFFFFF'
   },
   frase:{
     textAlign: 'center',
-    fontSize: 20,
+    marginTop: 14,
+    marginBottom: 4,
+    fontSize: 24,
     fontFamily:'Montserrat'
   },
   fraseLink:{
     textAlign: 'center',
-    fontSize: 20,
-    color: '#BD8A08',
+    fontSize: 24,
+    color: '#EBCB26',
     fontFamily:'Montserrat'
+  },
+  mensagemValidacao: {
+    fontSize: 18,
+    color: '#F11010'
   }
 });
 
