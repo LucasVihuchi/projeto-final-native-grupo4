@@ -86,12 +86,12 @@ function Routes() {
       if (credenciaisStorage !== null && credenciaisStorage !== undefined) {
         handleSetCredenciais(credenciaisStorage);
       }
-      handleSetCredenciais(
-        {
-          login: 'vitor',
-          senha: 'geladeira'
-        }
-      );
+      // handleSetCredenciais(
+      //   {
+      //     login: 'vitor',
+      //     senha: 'geladeira'
+      //   }
+      // );
       handleSetCredenciaisCarregadas();
   }
 
