@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import {View, Text, Button} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {CredenciaisContext} from "./context/credenciais";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
+import MinhaConta from './pages/MinhaConta/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,18 +45,6 @@ function Login({ navigation }) {
   );
 }
 
-function MinhaConta({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Minha Conta - Trocar pela página criada</Text>
-      <Button
-        title="Voltar para Home"
-        onPress={() => navigation.navigate('Home')}
-      />
-    </View>
-  );
-}
-
 function Carrinho({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -77,8 +69,36 @@ function CadastroUsuario({ navigation }) {
   );
 }
 
+function Routes() {
+  const {handleSetCredenciais, handleSetCredenciaisCarregadas} = useContext(CredenciaisContext);
 
-const Routes = () => {
+  async function getCredenciasStorage() {
+    try {
+      return await AsyncStorage.getItem('@credenciais');
+    }
+    catch(e) {
+      return null;
+    }
+  }
+
+  async function carregaCredenciais(){
+      let credenciaisStorage = JSON.parse(await getCredenciasStorage());
+      if (credenciaisStorage !== null && credenciaisStorage !== undefined) {
+        handleSetCredenciais(credenciaisStorage);
+      }
+      // handleSetCredenciais(
+      //   {
+      //     login: 'vitor',
+      //     senha: 'geladeira'
+      //   }
+      // );
+      handleSetCredenciaisCarregadas();
+  }
+
+  useEffect(() => {
+    carregaCredenciais()
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
@@ -90,6 +110,6 @@ const Routes = () => {
       </Stack.Navigator>
     </NavigationContainer>
   );
-};
+}
 
 export default Routes;
