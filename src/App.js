@@ -1,11 +1,15 @@
 import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
 
+import  Header from './components/Header/index';
+
 const App = () => {
   return (
-    <SafeAreaView>
-      <Text>Insira seu código aqui</Text>
-    </SafeAreaView>
+    <React.Fragment>
+
+      <Header />
+
+    </React.Fragment>
   );
 };
 
