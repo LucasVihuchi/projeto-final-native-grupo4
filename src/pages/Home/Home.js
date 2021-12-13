@@ -6,15 +6,16 @@ import {
   Image,
   ScrollView,
   Alert,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 import styles from './styles';
 import {CredenciaisContext} from '../../context/credenciais';
 import api from '../../service/api';
 import Header from '../../components/Header';
 import SubHeader from '../../components/SubHeader';
+import Footer from '../../components/Footer/index';
 
-const Home = ({navigation}) => { 
+const Home = ({navigation}) => {
   const [produtos, setProdutos] = useState([]);
 
   useEffect(() => {
@@ -159,8 +160,8 @@ const Home = ({navigation}) => {
   return (
     <SafeAreaView style={styles.containerCards}>
       <Header navegacao={navigation} />
-      <SubHeader/>
-      <ScrollView >
+      <SubHeader />
+      <ScrollView>
         {produtos.length === 0
           ? null
           : produtos.map(produto => {
@@ -186,8 +187,7 @@ const Home = ({navigation}) => {
                 </View>
               );
             })}
-
-
+        <Footer />
       </ScrollView>
     </SafeAreaView>
   );

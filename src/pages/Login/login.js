@@ -55,7 +55,10 @@ const Login = ({navigation}) => {
         senha: formik.values.senha,
       };
       handleSetCredenciais(credenciaisTemp);
-      await AsyncStorage.setItem('@credenciais', JSON.stringify(credenciaisTemp));
+      await AsyncStorage.setItem(
+        '@credenciais',
+        JSON.stringify(credenciaisTemp),
+      );
     }
   }
 
@@ -92,7 +95,7 @@ const Login = ({navigation}) => {
 
   return (
     <SafeAreaView>
-      <Header navegacao={navigation}/>
+      <Header navegacao={navigation} />
       <View style={styles.container}>
         <View style={styles.containerPerfil}>
           <Image
@@ -142,7 +145,7 @@ const Login = ({navigation}) => {
             onPress={() => {
               navigation.navigate('CadastroUsuario');
             }}>
-            <Text style={styles.fraseLink}>Clipe para sua conta!</Text>
+            <Text style={styles.fraseLink}>Clique para sua conta!</Text>
           </TouchableOpacity>
         </View>
       </View>
