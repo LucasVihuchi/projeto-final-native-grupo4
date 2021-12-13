@@ -2,26 +2,25 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
     Container:{
-        backgroundColor: '#F4F4F4',
+        backgroundColor: '#01091D',
         position: 'absolute',
         width: '100%',
+        paddingVertical: 14
     },
 
     ContainerHeader:{
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#01091D',
-        paddingHorizontal: '3%',
-        paddingVertical: 16,
+        paddingHorizontal: '5%',
+        paddingBottom: 16
 
     },
 
     LogoImagem:{
         resizeMode: 'stretch',
-        marginHorizontal: 7,
-        width: 110,
-        height: 35,
+        width: 150,
+        height: 50,
     },
 
     MenuHeader: {
@@ -30,29 +29,28 @@ const styles = StyleSheet.create({
     },
 
     Carrinho:{
-        display: 'flex',
-        marginHorizontal: 7,    
+        paddingHorizontal: 18,   
     },
  
     CarrinhoImagem:{
-        alignItems: 'flex-end',
-        marginHorizontal: 10,
+        height: 32,
+        width: 32,
     },
 
     TextosHeader:{
-        alignItems: 'flex-end',
-        zIndex: 5,
+        
     },
 
     BemVindo:{
         color: '#fff',
-        fontWeight: 'bold',
-        fontSize: 10,
+        fontSize: 13,
+        fontWeight: '700'
     },
 
     LoginLink:{
         color: '#fff',
-        fontSize: 20,
+        fontSize: 22,
+        lineHeight: 26
     },
 
     Pesquisa: {
@@ -61,19 +59,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#01091D',
         width: '100%',
-        paddingHorizontal: '3%',
-        paddingVertical: 4,
+        paddingHorizontal: '5%',
+        paddingTop: 12
     },
 
     BarraPesquisa:{
         width: '80%',
-
     },
 
     inputPesquisa: {
-        height: 48,
-        borderWidth: 2,
-        borderRadius: 7,
+        fontSize: 16,
+        fontWeight: '700',
+        paddingVertical: 5,
+        paddingHorizontal: 12,
+        borderRadius: 4,
         backgroundColor: '#fff'
       },
 
@@ -81,14 +80,13 @@ const styles = StyleSheet.create({
         marginLeft: 18,
         resizeMode: 'stretch',
         tintColor: '#fff',
-        width: 32,
-        height: 32,
+        width: 24,
+        height: 24,
     },
 
     ContainerSubHeader:{
-        position: 'absolute',
         alignItems: 'center',
-        marginTop: 129,
+        // marginTop: 129,
         width: '100%',
         backgroundColor: '#01091D',
     },
@@ -99,7 +97,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#01091D',
         width: '100%',
-        paddingHorizontal: '3%',
+        paddingHorizontal: '5%',
         paddingVertical: 8,
 
     },
