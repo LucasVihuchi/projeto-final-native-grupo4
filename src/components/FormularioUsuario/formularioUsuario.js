@@ -1,11 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {Text, View, TextInput, ScrollView, Alert, Button} from 'react-native';
 import {RadioButton, Checkbox} from 'react-native-paper';
+import DatePicker from 'react-native-date-picker';
 
 import styles from './styles';
 
 const FormularioUsuario = () => {
+  const [date, setDate] = useState(new Date());
+
+  function calculaIdadeMinima() {
+    let dataIdadeMinima = new Date();
+    dataIdadeMinima.setFullYear(dataIdadeMinima.getFullYear() - 18);
+    return dataIdadeMinima;
+  }
+
+  function calculaIdadeMaxima() {
+    let dataIdadeMaxima = new Date();
+    dataIdadeMaxima.setFullYear(dataIdadeMaxima.getFullYear() - 120);
+    return dataIdadeMaxima;
+  }
+
   const [checked, setChecked] = React.useState(false);
   return (
     <ScrollView style={styles.form}>
@@ -73,20 +88,15 @@ const FormularioUsuario = () => {
         Data de nascimento<Text style={styles.asterisco}> *</Text>
       </Text>
 
-      {/*  <TextInputMask
-        type={'datetime'}
-        options={{
-          format: 'YYYY/MM/DD',
-        }}
-        value={this.state.dt}
-        onChangeText={text => {
-          this.setState({
-            dt: text,
-          });
-        }}
-      /> */}
-
-      <TextInput style={styles.input} placeholder="DD/MM/AAAA" />
+      <DatePicker
+        style={[{height: 50}, styles.input]}
+        maximumDate={calculaIdadeMinima()}
+        minimumDate={calculaIdadeMaxima()}
+        date={date}
+        mode="date"
+        locale="pt_BR"
+        modal={false}
+      />
 
       <Text style={styles.subtitulo}>
         e-mail<Text style={styles.asterisco}> *</Text>
@@ -178,4 +188,5 @@ const FormularioUsuario = () => {
     </ScrollView>
   );
 };
+
 export default FormularioUsuario;

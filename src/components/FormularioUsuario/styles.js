@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
   },
   input: {
+    width: '100%',
     marginBottom: 10,
     marginTop: 2,
     borderRadius: 8,
