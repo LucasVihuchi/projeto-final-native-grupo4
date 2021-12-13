@@ -1,10 +1,11 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {ScrollView, Alert} from 'react-native';
+import {ScrollView, Alert, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import MenuMinhaConta from '../../components/MenuMinhaConta';
 import Compras from '../../components/Compras';
 import Vendas from '../../components/Vendas';
+import Header from '../../components/Header';
 
 import {CredenciaisContext} from '../../context/credenciais';
 
@@ -60,19 +61,22 @@ function MinhaConta({navigation}) {
   }, [credenciaisCarregadas]);
 
   return (
-    <ScrollView style={{flex: 1}}>
-      <MenuMinhaConta
-        secaoAtiva={secaoAtiva}
-        handleSetSecaoAtiva={handleSetSecaoAtiva}
-      />
-      {secaoAtiva === 1 ? (
-        <Compras />
-      ) : secaoAtiva === 2 ? (
-        <Compras />
-      ) : secaoAtiva === 3 ? (
-        <Vendas />
-      ) : null}
-    </ScrollView>
+    <View>
+      <Header navegacao={navigation} />
+      <ScrollView>
+        <MenuMinhaConta
+          secaoAtiva={secaoAtiva}
+          handleSetSecaoAtiva={handleSetSecaoAtiva}
+        />
+        {secaoAtiva === 1 ? (
+          <Compras />
+        ) : secaoAtiva === 2 ? (
+          <Compras />
+        ) : secaoAtiva === 3 ? (
+          <Vendas />
+        ) : null}
+      </ScrollView>
+    </View>
   );
 }
 

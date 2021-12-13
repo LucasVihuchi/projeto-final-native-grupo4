@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#01091D',
         position: 'absolute',
         width: '100%',
-        paddingVertical: 14
+        paddingVertical: 14,
+        zIndex: 10
     },
 
     ContainerHeader:{

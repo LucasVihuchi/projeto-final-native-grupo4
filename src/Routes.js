@@ -6,7 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import MinhaConta from './pages/MinhaConta/Home';
-import Login from './pages/Login/login'
+import Login from './pages/Login/login';
+import Header from './components/Header';
 
 const Stack = createNativeStackNavigator();
 
@@ -85,8 +86,8 @@ function Routes() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={Home} options={{ headerTitle: () => <Header /> }}/>
+        <Stack.Screen name="Login" component={Login} options={{ headerTitle: () => <Header /> }}/>
         <Stack.Screen name="MinhaConta" component={MinhaConta} />
         <Stack.Screen name="Carrinho" component={Carrinho} />
         <Stack.Screen name="CadastroUsuario" component={CadastroUsuario} />
