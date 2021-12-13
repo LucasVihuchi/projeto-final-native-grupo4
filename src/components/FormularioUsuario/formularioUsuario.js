@@ -1,37 +1,18 @@
 import React from 'react';
 
-import {Text, View, TextInput, ScrollView, Button, Alert} from 'react-native';
+import {Text, View, TextInput, ScrollView, Alert, Button} from 'react-native';
+import {RadioButton, Checkbox} from 'react-native-paper';
 
 import styles from './styles';
 
 const FormularioUsuario = () => {
-  /*  const formik = useFormik({
-    initialValues: {
-      nome: '',
-      sobrenome: '',
-      telefone1: '',
-      telefone2: '',
-      cpf: '',
-      dataNascimento: '',
-      email: '',
-      nomeUsuario: '',
-      senha: '',
-      cep: '',
-      rua: '',
-      bairro: '',
-      numero: '',
-      complemento: '',
-      cidade: '',
-      estado: '',
-    },
-  }); */
-
+  const [checked, setChecked] = React.useState(false);
   return (
     <ScrollView style={styles.form}>
       <Text style={styles.titulo}>Cadastro de Usuário</Text>
 
       <Text style={styles.subtitulo}>
-        Nome <Text style={styles.asterisco}> *</Text>
+        Nome<Text style={styles.asterisco}> *</Text>
       </Text>
 
       <TextInput style={styles.input} placeholder="Informe o Nome" />
@@ -47,32 +28,36 @@ const FormularioUsuario = () => {
       <TextInput
         style={styles.input}
         keyboardType="numeric"
-        placeholder="Informe"
+        placeholder="Informe o seu telefone principal"
       />
 
       <Text style={styles.subtitulo}>Telefone secundário</Text>
       <TextInput
         style={styles.input}
         keyboardType="numeric"
-        placeholder="Informe"
+        placeholder="Informe i seu telefone secundário"
       />
 
       <Text style={styles.subtitulo}>
-        Genero<Text style={styles.asterisco}> *</Text>
+        Gênero<Text style={styles.asterisco}> *</Text>
       </Text>
-      <View>
-        {/*        <RadioButton.Group
-          onValueChange={formik.handleChange('genero')}
-          value={formik.values.genero}>
-          <View>
-            <Text>Masculino</Text>
-            <RadioButton value="M"></RadioButton>
-          </View>
-          <View>
-            <Text>Feminino</Text>
-            <RadioButton value="F"></RadioButton>
-          </View>
-        </RadioButton.Group> */}
+      <View style={styles.genero}>
+        <View style={styles.checkitem}>
+          <RadioButton
+            value="M"
+            status={checked === 'M' ? 'checked' : 'unchecked'}
+            onPress={() => setChecked('M')}
+          />
+          <Text style={styles.subtitulo}>Masculino</Text>
+        </View>
+        <View style={styles.checkitem}>
+          <RadioButton
+            value="F"
+            status={checked === 'F' ? 'checked' : 'unchecked'}
+            onPress={() => setChecked('F')}
+          />
+          <Text style={styles.subtitulo}>Feminino</Text>
+        </View>
       </View>
 
       <Text style={styles.subtitulo}>
@@ -81,18 +66,36 @@ const FormularioUsuario = () => {
       <TextInput
         style={styles.input}
         keyboardType="numeric"
-        placeholder="Informe"
+        placeholder="Informe seu CPF"
       />
 
       <Text style={styles.subtitulo}>
         Data de nascimento<Text style={styles.asterisco}> *</Text>
       </Text>
-      <TextInput style={styles.input} placeholder="Informe" />
+
+      {/*  <TextInputMask
+        type={'datetime'}
+        options={{
+          format: 'YYYY/MM/DD',
+        }}
+        value={this.state.dt}
+        onChangeText={text => {
+          this.setState({
+            dt: text,
+          });
+        }}
+      /> */}
+
+      <TextInput style={styles.input} placeholder="DD/MM/AAAA" />
 
       <Text style={styles.subtitulo}>
         e-mail<Text style={styles.asterisco}> *</Text>
       </Text>
-      <TextInput style={styles.input} placeholder="Informe" />
+      <TextInput
+        style={styles.input}
+        keyboardType="email-address"
+        placeholder="email@address.com"
+      />
 
       <Text style={styles.subtitulo}>
         Nome de usuário<Text style={styles.asterisco}> *</Text>
@@ -145,8 +148,16 @@ const FormularioUsuario = () => {
       </Text>
       <TextInput style={styles.input} placeholder="Informe" />
 
-      <View>
-        <Text style={styles.subtitulo}>
+      <View style={styles.checkitem}>
+        <Checkbox
+          status={checked ? 'checked' : 'unchecked'}
+          onPress={() => {
+            setChecked(!checked);
+          }}
+          color={'green'}
+          uncheckColor={'red'}
+        />
+        <Text style={styles.termos}>
           Declado que li e aceito os Termos de Uso
         </Text>
       </View>
@@ -157,7 +168,7 @@ const FormularioUsuario = () => {
         title="Cadastrar Usuário"
         onPress={() => Alert.alert('Cadastro efetuado(!/?)')}
       />
-      <View style={styles.temCadastro}>
+      <View style={styles.checkitem}>
         <Text>Já tem cadastro?</Text>
         <Text style={styles.entrarCadastro}> Entrar</Text>
       </View>

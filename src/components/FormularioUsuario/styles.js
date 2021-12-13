@@ -3,17 +3,18 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   titulo: {
     fontSize: 30,
-    fontWeight: '600',
+    fontWeight: 'bold',
     textAlign: 'center',
+    color: 'black',
   },
   form: {
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 40,
+    backgroundColor: '#F4F4F4',
   },
   subtitulo: {
-    paddingTop: 5,
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: '600',
     textAlign: 'justify',
   },
@@ -22,9 +23,10 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
   },
   input: {
-    borderRadius: 5,
-    borderColor: '#000',
-    backgroundColor: '#497A',
+    marginBottom: 10,
+    marginTop: 2,
+    borderRadius: 8,
+    backgroundColor: '#D1D1D1',
     paddingHorizontal: 10,
   },
   botao: {
@@ -32,9 +34,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#01091D',
     color: '#F4F4F4',
   },
-  temCadastro: {
-    flex: 1,
-    justifyContent: 'center',
+  genero: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  checkitem: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  termos: {
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
   },
   entrarCadastro: {
     color: 'chocolate',
