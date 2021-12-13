@@ -2,10 +2,11 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   titulo: {
-    fontSize: 30,
+    fontSize: 44,
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'black',
+    marginBottom: 10,
   },
   form: {
     paddingLeft: 20,
@@ -14,9 +15,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F4F4',
   },
   subtitulo: {
-    fontSize: 18,
+    fontSize: 22,
+    color: '#000',
+    fontFamily: 'Montserrat',
     fontWeight: '600',
     textAlign: 'justify',
+    marginTop: 11,
   },
   asterisco: {
     color: 'red',
@@ -24,32 +28,55 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    marginBottom: 10,
+    fontSize: 18,
     marginTop: 2,
+    paddingVertical: 7,
+    paddingHorizontal: 12,
     borderRadius: 8,
     backgroundColor: '#D1D1D1',
-    paddingHorizontal: 10,
+    fontFamily: 'Montserrat',
   },
   botao: {
-    borderRadius: 10,
+    width: '100%',
     backgroundColor: '#01091D',
-    color: '#F4F4F4',
+    justifyContent: 'center',
+    paddingVertical: 6,
+    borderRadius: 10,
+    marginVertical: 6,
+  },
+  textobotao: {
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
   },
   genero: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
+    fontSize: 22,
   },
   checkitem: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    marginTop: 2,
+    marginBottom: 2,
   },
   termos: {
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     flexDirection: 'row',
+    fontSize: 17,
+    fontFamily: 'Montserrat',
   },
   entrarCadastro: {
     color: 'chocolate',
+    fontWeight: 'bold',
+    fontSize: 17,
+  },
+  mensagemValidacao: {
+    fontSize: 15,
+    color: '#F11010',
+    marginBottom: 3,
   },
   footer: {
     padding: 40,

@@ -1,12 +1,112 @@
 import React, {useState} from 'react';
 
-import {Text, View, TextInput, ScrollView, Alert, Button} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  ScrollView,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import {RadioButton, Checkbox} from 'react-native-paper';
 import DatePicker from 'react-native-date-picker';
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
+
+import api from '../../service/api';
 
 import styles from './styles';
 
 const FormularioUsuario = () => {
+  const formik = useFormik({
+    initialValues: {
+      nome: '',
+      sobrenome: '',
+      telefone1: '',
+      telefone2: '',
+      cpf: '',
+      dataNascimento: '',
+      email: '',
+      nomeUsuario: '',
+      senha: '',
+      cep: '',
+      rua: '',
+      bairro: '',
+      numero: '',
+      complemento: '',
+      cidade: '',
+      estado: '',
+    },
+    validationSchema: Yup.object({
+      nome: Yup.string()
+        .min(4, 'Nome deve conter no mínimo 4 caracteres')
+        .max(40, 'Nome deve conter no máximo 40 caracteres')
+        .required(
+          'Nome não pode ficar em branco. O campo deve ser preenchido!',
+        ),
+      sobrenome: Yup.string()
+        .min(4, 'Sobrenome deve conter no mínimo 4 caracteres')
+        .max(40, 'Sobrenome deve conter no máximo 40 caracteres')
+        .required(
+          'Sobrenome não pode ficar em branco. O campo deve ser preenchido!',
+        ),
+      telefone1: Yup.string()
+        .min(8, 'Telefone principal deve conter no mínimo 8 caracteres')
+        .max(13, 'Telefone principal deve conter no máximo 13 caracteres')
+        .required(
+          'O Telefone Principal não pode ficar em branco. O campo deve ser preenchido!',
+        ),
+      telefone2: Yup.string()
+        .min(8, 'Telefone secundário deve conter no mínimo 8 caracteres')
+        .max(13, 'Telefone secundário deve conter no máximo 13 caracteres'),
+      cpf: Yup.string()
+        .min(11, 'CPF inválido')
+        .max(11, 'CPF inválido')
+        .required('CPF não pode ficar em branco. O campo deve ser preenchido!'),
+      dataNascimento: Yup.date()
+        .max(new Date(), 'Data de nascimento não pode estar no futuro!')
+        .required(
+          'Data de nascimento não pode ficar em branco. O campo deve ser preenchido!',
+        ),
+      email: Yup.string()
+        .email('Campo deve conter um email!')
+        .required(
+          'Email não pode ficar em branco. O campo deve ser preenchido!',
+        ),
+      nomeUsuario: Yup.string().required(
+        'Nome de usuário não pode ficar em branco. O campo deve ser preenchido!',
+      ),
+      senha: Yup.string()
+        .min(8, 'Senha deve conter no mínimo 8 caracteres')
+        .max(35, 'Senha deve conter no máximo 35 caracteres')
+        .required(
+          'Senha não pode ficar em branco. O campo deve ser preenchido!',
+        ),
+      cep: Yup.string()
+        .min(8, 'CEP inválido')
+        .max(8, 'CEP inválido')
+        .required('CEP não pode ficar em branco. O campo deve ser preenchido!'),
+      rua: Yup.string().required(
+        'Rua não pode ficar em branco. O campo deve ser preenchido!',
+      ),
+      bairro: Yup.string().required(
+        'Bairro não pode ficar em branco. O campo deve ser preenchido!',
+      ),
+      numero: Yup.number()
+        .min(0, 'Número não pode ser negativo')
+        .required(
+          'Número não pode ficar em branco. O campo deve ser preenchido!',
+        ),
+      compemento: Yup.string(),
+      cidade: Yup.string().required(
+        'Cidade não pode ficar em branco. O campo deve ser preenchido!',
+      ),
+      estado: Yup.string().required(
+        'Estado não pode ficar em branco. O campo deve ser preenchido!',
+      ),
+    }),
+  });
+
   const [date, setDate] = useState(new Date());
 
   function calculaIdadeMinima() {
@@ -25,34 +125,58 @@ const FormularioUsuario = () => {
   return (
     <ScrollView style={styles.form}>
       <Text style={styles.titulo}>Cadastro de Usuário</Text>
-
       <Text style={styles.subtitulo}>
         Nome<Text style={styles.asterisco}> *</Text>
       </Text>
-
-      <TextInput style={styles.input} placeholder="Informe o Nome" />
-
+      <TextInput
+        style={styles.input}
+        onChangeText={formik.handleChange('nome')}
+        onBlur={formik.handleBlur('nome')}
+        value={formik.values.nome}
+        placeholder="Informe o seu nome"
+      />
+      {formik.touched.nome && formik.errors.nome ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.nome}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>
         Sobrenome<Text style={styles.asterisco}> *</Text>
       </Text>
-      <TextInput style={styles.input} placeholder="Informe o Sobrenome" />
-
+      <TextInput
+        style={styles.input}
+        onChangeText={formik.handleChange('sobrenome')}
+        onBlur={formik.handleBlur('sobrenome')}
+        value={formik.values.sobrenome}
+        placeholder="Informe o Sobrenome"
+      />
+      {formik.touched.sobrenome && formik.errors.sobrenome ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.sobrenome}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>
         Telefone principal<Text style={styles.asterisco}> *</Text>
       </Text>
       <TextInput
         style={styles.input}
+        onChangeText={formik.handleChange('telefone1')}
+        onBlur={formik.handleBlur('telefone1')}
+        value={formik.values.telefone1}
         keyboardType="numeric"
         placeholder="Informe o seu telefone principal"
       />
-
+      {formik.touched.telefone1 && formik.errors.telefone1 ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.telefone1}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>Telefone secundário</Text>
       <TextInput
         style={styles.input}
+        onChangeText={formik.handleChange('telefone2')}
+        onBlur={formik.handleBlur('telefone2')}
+        value={formik.values.telefone2}
         keyboardType="numeric"
-        placeholder="Informe i seu telefone secundário"
+        placeholder="Informe o seu telefone secundário (opcional)"
       />
-
+      {formik.touched.telefone2 && formik.errors.telefone2 ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.telefone2}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>
         Gênero<Text style={styles.asterisco}> *</Text>
       </Text>
@@ -63,7 +187,7 @@ const FormularioUsuario = () => {
             status={checked === 'M' ? 'checked' : 'unchecked'}
             onPress={() => setChecked('M')}
           />
-          <Text style={styles.subtitulo}>Masculino</Text>
+          <Text style={styles.genero}>Masculino</Text>
         </View>
         <View style={styles.checkitem}>
           <RadioButton
@@ -71,23 +195,26 @@ const FormularioUsuario = () => {
             status={checked === 'F' ? 'checked' : 'unchecked'}
             onPress={() => setChecked('F')}
           />
-          <Text style={styles.subtitulo}>Feminino</Text>
+          <Text style={styles.genero}>Feminino</Text>
         </View>
       </View>
-
       <Text style={styles.subtitulo}>
         CPF<Text style={styles.asterisco}> *</Text>
       </Text>
       <TextInput
         style={styles.input}
+        onChangeText={formik.handleChange('cpf')}
+        onBlur={formik.handleBlur('cpf')}
+        value={formik.values.cpf}
         keyboardType="numeric"
-        placeholder="Informe seu CPF"
+        placeholder="Informe o seu CPF"
       />
-
+      {formik.touched.cpf && formik.errors.cpf ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.cpf}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>
         Data de nascimento<Text style={styles.asterisco}> *</Text>
       </Text>
-
       <DatePicker
         style={[{height: 50}, styles.input]}
         maximumDate={calculaIdadeMinima()}
@@ -97,66 +224,139 @@ const FormularioUsuario = () => {
         locale="pt_BR"
         modal={false}
       />
-
       <Text style={styles.subtitulo}>
-        e-mail<Text style={styles.asterisco}> *</Text>
+        E-mail<Text style={styles.asterisco}> *</Text>
       </Text>
       <TextInput
         style={styles.input}
+        onChangeText={formik.handleChange('email')}
+        onBlur={formik.handleBlur('email')}
+        value={formik.values.email}
         keyboardType="email-address"
         placeholder="email@address.com"
       />
-
+      {formik.touched.email && formik.errors.email ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.email}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>
         Nome de usuário<Text style={styles.asterisco}> *</Text>
       </Text>
-      <TextInput style={styles.input} placeholder="Informe" />
-
+      <TextInput
+        style={styles.input}
+        onChangeText={formik.handleChange('nomeUsuario')}
+        onBlur={formik.handleBlur('nomeUsuario')}
+        value={formik.values.nomeUsuario}
+        placeholder="Informe um nome de usuário"
+      />
+      {formik.touched.nomeUsuario && formik.errors.nomeUsuario ? (
+        <Text style={styles.mensagemValidacao}>
+          {formik.errors.nomeUsuario}
+        </Text>
+      ) : null}
       <Text style={styles.subtitulo}>
         Senha<Text style={styles.asterisco}> *</Text>
       </Text>
-      <TextInput style={styles.input} placeholder="Informe" />
-
+      <TextInput
+        style={styles.input}
+        onChangeText={formik.handleChange('senha')}
+        onBlur={formik.handleBlur('senha')}
+        value={formik.values.senha}
+        placeholder="Informe uma senha com no mínimo 8 caracteres"
+      />
+      {formik.touched.senha && formik.errors.senha ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.senha}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>
         CEP<Text style={styles.asterisco}> *</Text>
       </Text>
       <TextInput
         style={styles.input}
+        onChangeText={formik.handleChange('cep')}
+        onBlur={formik.handleBlur('cep')}
+        value={formik.values.cep}
         keyboardType="numeric"
-        placeholder="Informe"
+        placeholder="Informe o seu CEP"
       />
-
+      {formik.touched.cep && formik.errors.cep ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.cep}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>
         Rua<Text style={styles.asterisco}> *</Text>
       </Text>
-      <TextInput style={styles.input} placeholder="Informe" />
-
+      <TextInput
+        style={styles.input}
+        onChangeText={formik.handleChange('rua')}
+        onBlur={formik.handleBlur('rua')}
+        value={formik.values.rua}
+        placeholder="Informe"
+      />
+      {formik.touched.rua && formik.errors.rua ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.rua}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>
         Bairro<Text style={styles.asterisco}> *</Text>
       </Text>
-      <TextInput style={styles.input} placeholder="Informe" />
-
+      <TextInput
+        style={styles.input}
+        onChangeText={formik.handleChange('bairro')}
+        onBlur={formik.handleBlur('bairro')}
+        value={formik.values.bairro}
+        placeholder="Informe o nome da sua rua"
+      />
+      {formik.touched.bairro && formik.errors.bairro ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.bairro}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>
         Número<Text style={styles.asterisco}> *</Text>
       </Text>
       <TextInput
         style={styles.input}
+        onChangeText={formik.handleChange('numero')}
+        onBlur={formik.handleBlur('numero')}
+        value={formik.values.numero}
         keyboardType="numeric"
-        placeholder="Informe"
+        placeholder="Informe o número da residência"
       />
-
+      {formik.touched.numero && formik.errors.numero ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.numero}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>Complemento</Text>
-      <TextInput style={styles.input} placeholder="Informe" />
-
+      <TextInput
+        style={styles.input}
+        onChangeText={formik.handleChange('compemento')}
+        onBlur={formik.handleBlur('compemento')}
+        value={formik.values.compemento}
+        placeholder="Informe o complemento (opcional)"
+      />
+      {formik.touched.compemento && formik.errors.compemento ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.compemento}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>
         Cidade<Text style={styles.asterisco}> *</Text>
       </Text>
-      <TextInput style={styles.input} placeholder="Informe" />
-
+      <TextInput
+        style={styles.input}
+        onChangeText={formik.handleChange('cidade')}
+        onBlur={formik.handleBlur('cidade')}
+        value={formik.values.cidade}
+        placeholder="Informe a sua cidade"
+      />
+      {formik.touched.cidade && formik.errors.cidade ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.cidade}</Text>
+      ) : null}
       <Text style={styles.subtitulo}>
         Estado<Text style={styles.asterisco}> *</Text>
       </Text>
-      <TextInput style={styles.input} placeholder="Informe" />
+      <TextInput
+        style={styles.input}
+        onChangeText={formik.handleChange('estado')}
+        onBlur={formik.handleBlur('estado')}
+        value={formik.values.estado}
+        placeholder="Informe o seu Estado"
+      />
+      {formik.touched.estado && formik.errors.estado ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.estado}</Text>
+      ) : null}
 
       <View style={styles.checkitem}>
         <Checkbox
@@ -171,16 +371,18 @@ const FormularioUsuario = () => {
           Declado que li e aceito os Termos de Uso
         </Text>
       </View>
+      <TouchableOpacity style={styles.botao} onPress={formik.handleSubmit}>
+        <Text style={styles.textobotao}>Cadastrar Usuário</Text>
+      </TouchableOpacity>
 
-      <Button
-        style={styles.botao}
-        color="#01091D"
-        title="Cadastrar Usuário"
-        onPress={() => Alert.alert('Cadastro efetuado(!/?)')}
-      />
-      <View style={styles.checkitem}>
-        <Text>Já tem cadastro?</Text>
-        <Text style={styles.entrarCadastro}> Entrar</Text>
+      <View style={styles.termos}>
+        <Text style={styles.termos}>Já tem cadastro?</Text>
+        <TouchableOpacity
+          onPress={() =>
+            Alert.alert('Click Click Click /// TODO: Colocar navigation Login')
+          }>
+          <Text style={styles.entrarCadastro}> Entrar</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.footer}>
         <Text>Footer</Text>
