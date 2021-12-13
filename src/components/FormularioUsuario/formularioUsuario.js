@@ -13,15 +13,16 @@ import DatePicker from 'react-native-date-picker';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
-// import { CredenciaisContext } from "../../context/credenciais";
+import { CredenciaisContext } from "../../context/credenciais";
 import api from '../../service/api';
 
 import styles from './styles';
 
-const FormularioUsuario = () => {
-  // const { credenciais, credenciaisCarregadas } = useContext(CredenciaisContext);
+const FormularioUsuario = ({navegacao}) => {
+  const { credenciais, credenciaisCarregadas } = useContext(CredenciaisContext);
   const [date, setDate] = useState(new Date());
   const [checked, setChecked] = useState(false);
+  const [genero, setGenero] = useState('');
   const [informacoes, setInformacoes] = useState({
     cep: '',
     logradouro: "",
@@ -78,11 +79,6 @@ const FormularioUsuario = () => {
         .min(11, 'CPF inválido')
         .max(11, 'CPF inválido')
         .required('CPF não pode ficar em branco. O campo deve ser preenchido!'),
-      dataNascimento: Yup.date()
-        .max(new Date(), 'Data de nascimento não pode estar no futuro!')
-        .required(
-          'Data de nascimento não pode ficar em branco. O campo deve ser preenchido!',
-        ),
       email: Yup.string()
         .email('Campo deve conter um email!')
         .required(
@@ -112,7 +108,7 @@ const FormularioUsuario = () => {
         .required(
           'Número não pode ficar em branco. O campo deve ser preenchido!',
         ),
-      compemento: Yup.string(),
+      complemento: Yup.string(),
       cidade: Yup.string().required(
         'Cidade não pode ficar em branco. O campo deve ser preenchido!',
       ),
@@ -120,6 +116,14 @@ const FormularioUsuario = () => {
         'Estado não pode ficar em branco. O campo deve ser preenchido!',
       ),
     }),
+    onSubmit: () => {
+      if (checked) {
+        cadastrarUsuario();
+      }
+      else {
+        Alert.alert('Você deve concordar com os termos');
+      }
+    }
   });
 
   function calculaIdadeMinima() {
@@ -134,94 +138,96 @@ const FormularioUsuario = () => {
     return dataIdadeMaxima;
   }
 
-  // async function getInformacoes() {
-  //   if(formik.values.cep === undefined || formik.values.cep.length !== 8) {
-  //     return;
-  //   }
-  //   try {
-  //     const response = await api.get("http://viacep.com.br/ws/" + formik.values.cep + "/json/")
-  //     if(response?.data?.erro) {
-  //       alert("CEP não encontrado");
-  //     }
-  //     setInformacoes(response.data);
-  //     return(response.data)
-  //   }
-  //   catch (e) {
-  //     console.log(2);
-  //   }
-  // };
+  async function getInformacoes() {
+    if(formik.values.cep === undefined || formik.values.cep.length !== 8) {
+      return;
+    }
+    try {
+      const response = await api.get("http://viacep.com.br/ws/" + formik.values.cep + "/json/")
+      if(response?.data?.erro) {
+        Alert.alert("CEP não encontrado");
+      }
+      setInformacoes(response.data);
+      return(response.data)
+    }
+    catch (e) {
+      Alert.alert("Erro ao se comunicar com o viaCep");
+    }
+  }
 
-  // useEffect(async () => {
-  //   console.log(cep);
-  //   let informacoesTemp = await getInformacoes();
+  async function preencherViaCep() {
+    let informacoesTemp = await getInformacoes();
     
-  //   formik.values.rua = ((informacoesTemp?.logradouro ?? ''));
-  //   formik.values.cidade = ((informacoesTemp?.localidade ?? ''));
-  //   formik.values.estado = ((informacoesTemp?.uf ?? ''));
-  //   formik.values.bairro = ((informacoesTemp?.bairro ?? ''));
-  //   console.log('bateu aqui');
-  // }, [cep]);
+    formik.values.rua = (informacoesTemp?.logradouro ?? '');
+    formik.values.cidade = (informacoesTemp?.localidade ?? '');
+    formik.values.estado = (informacoesTemp?.uf ?? '');
+    formik.values.bairro = (informacoesTemp?.bairro ?? '');
+  }
 
-  // function cadastrarUsuario(e) {
-  //   e.preventDefault();
-  //   const usuario = {
-  //     nome: nome,
-  //     sobrenome: sobrenome,
-  //     telefonePrincipal: telefone1,
-  //     telefoneSecundario: telefone2 == "" ? null : telefone2,
-  //     sexo: genero,
-  //     cpf: cpf,
-  //     dataNascimento: dataNascimento,
-  //     email: email,
-  //     nomeUsuario: nomeUsuario,
-  //     senhaUsuario: senha,
-  //     endereco: {
-  //       cep: cep,
-  //       logradouro: rua === "" ? null : rua,
-  //       bairro: bairro === "" ? null : bairro,
-  //       numero: numero === "" ? null : +numero,
-  //       complemento: complemento === "" ? null : complemento,
-  //       cidade: cidade === "" ? null : cidade,
-  //       estado: estado === "" ? null : estado,
-  //     },
-  //   };
+  useEffect(() => {
+    if(formik.values.cep.length === 8) {
+    preencherViaCep();
+    }
+  }, [formik.values.cep]);
 
-  //   useEffect(() => {
-  //     if (credenciaisCarregadas) {
-  //       if (
-  //         credenciais.login !== null &&
-  //         credenciais.senha !== null &&
-  //         credenciais.login !== undefined &&
-  //         credenciais.senha !== undefined
-  //       ) {
-  //         history.push("/minha-conta");
-  //       }
-  //     }
-  //   }, [credenciaisCarregadas]);
+  useEffect(() => {
+    if (credenciaisCarregadas) {
+      if (
+        credenciais.login !== null &&
+        credenciais.senha !== null &&
+        credenciais.login !== undefined &&
+        credenciais.senha !== undefined
+      ) {
+        navigation.navigate('MinhaConta');
+      }
+    }
+  }, [credenciaisCarregadas]);
 
-  //   console.log(usuario);
-
-  //   api
-  //     .post(`api/v1/usuarios`, usuario, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     })
-  //     .then((response) => {
-  //       if (response.status === 201) {
-  //         alert("Usuario cadastrado com sucesso");
-  //         history.push("/");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       if (error?.response?.data.titulo === "Usuario já existe no sistema") {
-  //         alert("Usuário já possui cadastro!");
-  //       }
-  //       else {
-  //         alert(error?.response?.data.listaErros[0]);
-  //       }
-  //     });
-  // }
+  function cadastrarUsuario() {
+    const usuario = {
+      nome: formik.values.nome,
+      sobrenome: formik.values.sobrenome,
+      telefonePrincipal: formik.values.telefone1,
+      telefoneSecundario: formik.values.telefone2 == "" ? null : formik.values.telefone2,
+      sexo: genero,
+      cpf: formik.values.cpf,
+      dataNascimento: date.toISOString().split('T')[0],
+      email: formik.values.email,
+      nomeUsuario: formik.values.nomeUsuario,
+      senhaUsuario: formik.values.senha,
+      endereco: {
+        cep: formik.values.cep,
+        logradouro: formik.values.rua === "" ? null : formik.values.rua,
+        bairro: formik.values.bairro === "" ? null : formik.values.bairro,
+        numero: formik.values.numero === "" ? null : +formik.values.numero,
+        complemento: formik.values.complemento === "" ? null : formik.values.complemento,
+        cidade: formik.values.cidade === "" ? null : formik.values.cidade,
+        estado: formik.values.estado === "" ? null : formik.values.estado,
+      },
+    };
+    
+    api
+      .post(`api/v1/usuarios`, usuario, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          Alert.alert('Cadastro', 'Usuário cadastrado com sucesso', [
+            {text: 'Ok', onPress: () => navegacao.navigate('Home')},
+          ]);
+        }
+      })
+      .catch((error) => {
+        if (error?.response?.data.titulo === "Usuario já existe no sistema") {
+          Alert.alert("Usuário já possui cadastro!");
+        }
+        else {
+          Alert.alert(error?.response?.data.listaErros[0]);
+        }
+      });
+  }
 
   return (
     <ScrollView style={styles.form}>
@@ -285,16 +291,16 @@ const FormularioUsuario = () => {
         <View style={styles.checkitem}>
           <RadioButton
             value="M"
-            status={checked === 'M' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('M')}
+            status={genero === 'M' ? 'checked' : 'unchecked'}
+            onPress={() => setGenero('M')}
           />
           <Text style={styles.genero}>Masculino</Text>
         </View>
         <View style={styles.checkitem}>
           <RadioButton
             value="F"
-            status={checked === 'F' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('F')}
+            status={genero === 'F' ? 'checked' : 'unchecked'}
+            onPress={() => setGenero('F')}
           />
           <Text style={styles.genero}>Feminino</Text>
         </View>
@@ -321,6 +327,7 @@ const FormularioUsuario = () => {
         maximumDate={calculaIdadeMinima()}
         minimumDate={calculaIdadeMaxima()}
         date={date}
+        onDateChange={setDate}
         mode="date"
         locale="pt_BR"
         modal={false}
@@ -361,6 +368,7 @@ const FormularioUsuario = () => {
         style={styles.input}
         onChangeText={formik.handleChange('senha')}
         onBlur={formik.handleBlur('senha')}
+        secureTextEntry={true}
         value={formik.values.senha}
         placeholder="Informe uma senha com no mínimo 8 caracteres"
       />
@@ -424,13 +432,13 @@ const FormularioUsuario = () => {
       <Text style={styles.subtitulo}>Complemento</Text>
       <TextInput
         style={styles.input}
-        onChangeText={formik.handleChange('compemento')}
-        onBlur={formik.handleBlur('compemento')}
-        value={formik.values.compemento}
+        onChangeText={formik.handleChange('complemento')}
+        onBlur={formik.handleBlur('complemento')}
+        value={formik.values.complemento}
         placeholder="Informe o complemento (opcional)"
       />
-      {formik.touched.compemento && formik.errors.compemento ? (
-        <Text style={styles.mensagemValidacao}>{formik.errors.compemento}</Text>
+      {formik.touched.complemento && formik.errors.complemento ? (
+        <Text style={styles.mensagemValidacao}>{formik.errors.complemento}</Text>
       ) : null}
       <Text style={styles.subtitulo}>
         Cidade<Text style={styles.asterisco}> *</Text>
@@ -475,10 +483,10 @@ const FormularioUsuario = () => {
       </TouchableOpacity>
 
       <View style={styles.termos}>
-        <Text style={styles.termos}>Já tem cadastro?</Text>
+        <Text style={styles.infoLogin}>Já tem cadastro?</Text>
         <TouchableOpacity
           onPress={() =>
-            Alert.alert('Click Click Click /// TODO: Colocar navigation Login')
+            navegacao.navigate('Login')
           }>
           <Text style={styles.entrarCadastro}> Entrar</Text>
         </TouchableOpacity>

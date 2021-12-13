@@ -71,10 +71,16 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontFamily: 'Montserrat',
   },
+  infoLogin: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    fontSize: 22,
+    fontFamily: 'Montserrat',
+  },
   entrarCadastro: {
-    color: 'chocolate',
-    fontWeight: 'bold',
-    fontSize: 17,
+    color: '#EBCB26',
+    fontWeight: '600',
+    fontSize: 22,
   },
   mensagemValidacao: {
     fontSize: 16,

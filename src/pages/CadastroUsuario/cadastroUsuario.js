@@ -3,11 +3,11 @@ import {SafeAreaView} from 'react-native';
 import Formulario from '../../components/FormularioUsuario/formularioUsuario';
 import Header from '../../components/Header';
 
-const CadastroUsuario = () => {
+const CadastroUsuario = ({navigation}) => {
   return (
     <SafeAreaView>
-      <Header />
-      <Formulario />
+      <Header navegacao={navigation} />
+      <Formulario navegacao={navigation} />
     </SafeAreaView>
   );
 };
