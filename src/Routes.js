@@ -9,32 +9,11 @@ import MinhaConta from './pages/MinhaConta/Home';
 import CadastroUsuario from './pages/CadastroUsuario/cadastroUsuario';
 import Login from './pages/Login/login';
 import Header from './components/Header';
+import Home from './pages/Home/Home';
 
 const Stack = createNativeStackNavigator();
 
-function Home({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home</Text>
-      <Button
-        title="Login"
-        onPress={() => navigation.navigate('Login')}
-      />
-      <Button
-        title="Minha Conta"
-        onPress={() => navigation.navigate('MinhaConta')}
-      />
-      <Button
-        title="Carrinho"
-        onPress={() => navigation.navigate('Carrinho')}
-      />
-      <Button
-        title="Cadastro Usuario"
-        onPress={() => navigation.navigate('CadastroUsuario')}
-      />
-    </View>
-  );
-}
+
 
 function Carrinho({ navigation }) {
   return (

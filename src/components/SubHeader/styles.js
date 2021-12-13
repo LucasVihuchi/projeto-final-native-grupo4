@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     marginTop: 144,
     width: '100%',
     backgroundColor: '#01091D',
+    zIndex: 10,
   },
 
   MenuCategorias: {
