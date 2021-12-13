@@ -6,14 +6,16 @@ import ContextoCredenciais from './context/credenciais';
 import Routes from './Routes';
 
 const App = () => {
+  console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
+  console.disableYellowBox = true;
   return (
     <ContextoCredenciais>
-    <PaperProvider theme={theme}>
-      <SafeAreaProvider>
+      <PaperProvider theme={theme}>
+        <SafeAreaProvider>
           <Routes />
-      </SafeAreaProvider>
-    </PaperProvider>
-    </ContextoCredenciais>    
+        </SafeAreaProvider>
+      </PaperProvider>
+    </ContextoCredenciais>
   );
 };
 

@@ -43,11 +43,7 @@ function MinhaConta({navigation}) {
   }
 
   useEffect(() => {
-    if (secaoAtiva === 4) {
-      navigation.navigate('Home');
-    } else if (secaoAtiva === 5) {
-      navigation.navigate('Home');
-    } else if (secaoAtiva === 6) {
+    if (secaoAtiva === 3) {
       realizarLogout();
     }
   }, [secaoAtiva]);
@@ -68,13 +64,7 @@ function MinhaConta({navigation}) {
           secaoAtiva={secaoAtiva}
           handleSetSecaoAtiva={handleSetSecaoAtiva}
         />
-        {secaoAtiva === 1 ? (
-          <Compras />
-        ) : secaoAtiva === 2 ? (
-          <Compras />
-        ) : secaoAtiva === 3 ? (
-          <Vendas />
-        ) : null}
+        {secaoAtiva === 1 ? <Compras /> : secaoAtiva === 2 ? <Vendas /> : null}
       </ScrollView>
     </View>
   );

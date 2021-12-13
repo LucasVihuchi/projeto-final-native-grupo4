@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 
-import api from "../../service/api";
+import api from '../../service/api';
 import styles from './styles.js';
 
 const SubHeader = () => {
@@ -13,12 +13,12 @@ const SubHeader = () => {
   useEffect(() => {
     api
       .get(`api/v1/categorias`)
-      .then((response) => {
+      .then(response => {
         if (response.status === 200) {
           setCategorias(response.data);
         }
       })
-      .catch((error) => {
+      .catch(error => {
         alert(error?.response?.data?.listaErros[0]);
       });
   }, []);
@@ -28,24 +28,21 @@ const SubHeader = () => {
       <TouchableOpacity style={styles.MenuCategorias} onPress={onClick}>
         <Image
           style={styles.CategoriasIcone}
-          source={require('../../assets/img/search.png')}
+          source={require('../../assets/img/icone-menu.png')}
         />
         <Text style={styles.TodasCategorias}>Todas as categorias</Text>
       </TouchableOpacity>
       {categorias.length === 0
         ? null
-        : isActive 
+        : isActive
         ? categorias.map(categoria => {
             return (
               <TouchableOpacity key={categoria.id} style={styles.ItemCategoria}>
-                <Text style={styles.ItemCategoriaTexto}>
-                  {categoria.nome}
-                </Text>
+                <Text style={styles.ItemCategoriaTexto}>{categoria.nome}</Text>
               </TouchableOpacity>
             );
           })
-        : null
-        }
+        : null}
     </View>
   );
 };
