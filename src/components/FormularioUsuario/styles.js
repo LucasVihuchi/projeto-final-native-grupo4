@@ -1,26 +1,24 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  titulo: {
-    fontSize: 44,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: 'black',
-    marginBottom: 10,
-  },
   form: {
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingHorizontal: '5%',
+    paddingTop: 168,
     paddingBottom: 40,
     backgroundColor: '#F4F4F4',
   },
+  titulo: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: 'black',
+    marginBottom: 10,
+  },
   subtitulo: {
-    fontSize: 22,
+    fontSize: 24,
     color: '#000',
     fontFamily: 'Montserrat',
-    fontWeight: '600',
     textAlign: 'justify',
-    marginTop: 11,
+    marginTop: 10,
   },
   asterisco: {
     color: 'red',
@@ -35,6 +33,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#D1D1D1',
     fontFamily: 'Montserrat',
+  },
+  inputData: {
+    width: '100%',
+    marginTop: 2,
+    backgroundColor: '#D1D1D1',
   },
   botao: {
     width: '100%',
@@ -74,12 +77,12 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   mensagemValidacao: {
-    fontSize: 15,
+    fontSize: 16,
     color: '#F11010',
-    marginBottom: 3,
+    marginBottom: 4,
   },
   footer: {
-    padding: 40,
+    padding: 96,
   },
 });
 

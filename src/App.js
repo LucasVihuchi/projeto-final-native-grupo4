@@ -10,7 +10,6 @@ const App = () => {
     <PaperProvider theme={theme}>
       <SafeAreaProvider>
         <SafeAreaView>
-          <Text>Página APP</Text>
           <CadastroUsuario />
         </SafeAreaView>
       </SafeAreaProvider>

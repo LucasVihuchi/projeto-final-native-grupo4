@@ -5,7 +5,6 @@ import Formulario from '../../components/FormularioUsuario/formularioUsuario';
 const CadastroUsuario = () => {
   return (
     <SafeAreaView>
-      <Text>Página de cadastro</Text>
       <Formulario />
     </SafeAreaView>
   );

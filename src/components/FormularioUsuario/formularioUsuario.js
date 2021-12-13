@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import {
   Text,
@@ -13,11 +13,26 @@ import DatePicker from 'react-native-date-picker';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
+// import { CredenciaisContext } from "../../context/credenciais";
 import api from '../../service/api';
 
 import styles from './styles';
 
 const FormularioUsuario = () => {
+  // const { credenciais, credenciaisCarregadas } = useContext(CredenciaisContext);
+  const [date, setDate] = useState(new Date());
+  const [checked, setChecked] = useState(false);
+  const [informacoes, setInformacoes] = useState({
+    cep: '',
+    logradouro: "",
+    complemento: "",
+    bairro: "",
+    localidade: "",
+    uf: "",
+    ibge: "",
+    gia: "",
+  });
+
   const formik = useFormik({
     initialValues: {
       nome: '',
@@ -107,8 +122,6 @@ const FormularioUsuario = () => {
     }),
   });
 
-  const [date, setDate] = useState(new Date());
-
   function calculaIdadeMinima() {
     let dataIdadeMinima = new Date();
     dataIdadeMinima.setFullYear(dataIdadeMinima.getFullYear() - 18);
@@ -121,7 +134,95 @@ const FormularioUsuario = () => {
     return dataIdadeMaxima;
   }
 
-  const [checked, setChecked] = React.useState(false);
+  // async function getInformacoes() {
+  //   if(formik.values.cep === undefined || formik.values.cep.length !== 8) {
+  //     return;
+  //   }
+  //   try {
+  //     const response = await api.get("http://viacep.com.br/ws/" + formik.values.cep + "/json/")
+  //     if(response?.data?.erro) {
+  //       alert("CEP não encontrado");
+  //     }
+  //     setInformacoes(response.data);
+  //     return(response.data)
+  //   }
+  //   catch (e) {
+  //     console.log(2);
+  //   }
+  // };
+
+  // useEffect(async () => {
+  //   console.log(cep);
+  //   let informacoesTemp = await getInformacoes();
+    
+  //   formik.values.rua = ((informacoesTemp?.logradouro ?? ''));
+  //   formik.values.cidade = ((informacoesTemp?.localidade ?? ''));
+  //   formik.values.estado = ((informacoesTemp?.uf ?? ''));
+  //   formik.values.bairro = ((informacoesTemp?.bairro ?? ''));
+  //   console.log('bateu aqui');
+  // }, [cep]);
+
+  // function cadastrarUsuario(e) {
+  //   e.preventDefault();
+  //   const usuario = {
+  //     nome: nome,
+  //     sobrenome: sobrenome,
+  //     telefonePrincipal: telefone1,
+  //     telefoneSecundario: telefone2 == "" ? null : telefone2,
+  //     sexo: genero,
+  //     cpf: cpf,
+  //     dataNascimento: dataNascimento,
+  //     email: email,
+  //     nomeUsuario: nomeUsuario,
+  //     senhaUsuario: senha,
+  //     endereco: {
+  //       cep: cep,
+  //       logradouro: rua === "" ? null : rua,
+  //       bairro: bairro === "" ? null : bairro,
+  //       numero: numero === "" ? null : +numero,
+  //       complemento: complemento === "" ? null : complemento,
+  //       cidade: cidade === "" ? null : cidade,
+  //       estado: estado === "" ? null : estado,
+  //     },
+  //   };
+
+  //   useEffect(() => {
+  //     if (credenciaisCarregadas) {
+  //       if (
+  //         credenciais.login !== null &&
+  //         credenciais.senha !== null &&
+  //         credenciais.login !== undefined &&
+  //         credenciais.senha !== undefined
+  //       ) {
+  //         history.push("/minha-conta");
+  //       }
+  //     }
+  //   }, [credenciaisCarregadas]);
+
+  //   console.log(usuario);
+
+  //   api
+  //     .post(`api/v1/usuarios`, usuario, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     })
+  //     .then((response) => {
+  //       if (response.status === 201) {
+  //         alert("Usuario cadastrado com sucesso");
+  //         history.push("/");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       if (error?.response?.data.titulo === "Usuario já existe no sistema") {
+  //         alert("Usuário já possui cadastro!");
+  //       }
+  //       else {
+  //         alert(error?.response?.data.listaErros[0]);
+  //       }
+  //     });
+  // }
+
   return (
     <ScrollView style={styles.form}>
       <Text style={styles.titulo}>Cadastro de Usuário</Text>
@@ -216,7 +317,7 @@ const FormularioUsuario = () => {
         Data de nascimento<Text style={styles.asterisco}> *</Text>
       </Text>
       <DatePicker
-        style={[{height: 50}, styles.input]}
+        style={[{height: 50}, styles.inputData]}
         maximumDate={calculaIdadeMinima()}
         minimumDate={calculaIdadeMaxima()}
         date={date}
@@ -364,8 +465,6 @@ const FormularioUsuario = () => {
           onPress={() => {
             setChecked(!checked);
           }}
-          color={'green'}
-          uncheckColor={'red'}
         />
         <Text style={styles.termos}>
           Declado que li e aceito os Termos de Uso
