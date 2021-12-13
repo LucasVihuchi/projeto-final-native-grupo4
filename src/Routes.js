@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import MinhaConta from './pages/MinhaConta/Home';
+import CadastroUsuario from './pages/CadastroUsuario/cadastroUsuario';
 import Login from './pages/Login/login';
 import Header from './components/Header';
 
@@ -39,18 +40,6 @@ function Carrinho({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Carrinho - Trocar pela página criada</Text>
-      <Button
-        title="Voltar para Home"
-        onPress={() => navigation.navigate('Home')}
-      />
-    </View>
-  );
-}
-
-function CadastroUsuario({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Cadastro Usuarios - Trocar pela página criada</Text>
       <Button
         title="Voltar para Home"
         onPress={() => navigation.navigate('Home')}
