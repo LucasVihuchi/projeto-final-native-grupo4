@@ -6,7 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import MinhaConta from './pages/MinhaConta/Home';
-import Login from './pages/Login/login'
+import Login from './pages/Login/login';
+import Footer from './components/Footer';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,10 @@ function Home({ navigation }) {
       <Button
         title="Cadastro Usuario"
         onPress={() => navigation.navigate('CadastroUsuario')}
+      />
+      <Button
+        title="Testes Footer"
+        onPress={() => navigation.navigate('Footer')}
       />
     </View>
   );
@@ -82,14 +87,16 @@ function Routes() {
     carregaCredenciais()
   }, []);
 
+  // Rota inicial está como footer, só para testes. Voltar para Home quando terminar
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+      <Stack.Navigator initialRouteName="Footer" screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="MinhaConta" component={MinhaConta} />
         <Stack.Screen name="Carrinho" component={Carrinho} />
         <Stack.Screen name="CadastroUsuario" component={CadastroUsuario} />
+        <Stack.Screen name="Footer" component={Footer} />
       </Stack.Navigator>
     </NavigationContainer>
   );

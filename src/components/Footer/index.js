@@ -2,7 +2,6 @@ import React from "react";
 
 import { View, SafeAreaView, Image, Text, Linking, TextInput } from 'react-native';
 import { TouchableOpacity, SearchBar } from 'react-native';
-import ModalDropdown from 'react-native-modal-dropdown';
 
 import styles from './styles.js';
 
