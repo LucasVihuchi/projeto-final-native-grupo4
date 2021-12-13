@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     
   },
   containerPerfil: {
-    marginTop: 146,
+    marginTop: 168,
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create ({
     containerMenu: {
-        marginTop: 158,
+        marginTop: 168,
         alignItems: 'center',
         elevation: 5
     },
