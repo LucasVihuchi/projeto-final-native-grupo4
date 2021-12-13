@@ -1,13 +1,14 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
-import Home from './pages/Home/Home';
+import ContextoCredenciais from './context/credenciais';
+import Routes from './Routes';
 
+import Header from './components/Header';
+import SubHeader from './components/SubHeader';
 const App = () => {
   return (
-    
-   
-      <Home/>
-   
+    <ContextoCredenciais>
+      <Routes />
+    </ContextoCredenciais>
   );
 };
 
