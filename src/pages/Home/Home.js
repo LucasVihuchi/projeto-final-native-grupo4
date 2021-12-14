@@ -43,7 +43,7 @@ const Home = ({navigation}) => {
       let carrinho = await getCarrinho();
       if (carrinho.length === 0) {
         console.log('Criar');
-        criaPedido();
+        criaPedido(produto);
       } else {
         buscaProdutoCarrinho(carrinho, produto);
       }
@@ -86,11 +86,11 @@ const Home = ({navigation}) => {
       }
     });
     if (!constaVendedor) {
-      criaPedido();
+      criaPedido(produto);
     }
   }
 
-  function criaPedido() {
+  function criaPedido(produto) {
     let pedido = {
       fretePedido: 0,
       vendedor: {
@@ -164,30 +164,31 @@ const Home = ({navigation}) => {
         {produtos.length === 0
           ? null
           : produtos.map(produto => {
-              return (
-                <View style={styles.container} key={produto.id}>
-                  <View style={styles.segundoContainer}>
-                    <Image
-                      style={styles.image}
-                      source={{uri: produto.urlFoto}}></Image>
-                    <Text style={styles.Texto}>{produto.nome}</Text>
-                    <Text style={styles.subTexto}>{produto.descricao}</Text>
-                    <Text style={styles.textoPreco}>
-                      R$ {produto.precoUnitario.toFixed(2)}
-                    </Text>
-                    <TouchableOpacity
-                      style={styles.button}
-                      onPress={() => {
-                        handleComprar(produto);
-                      }}>
-                      <Text style={styles.buttonText}>Comprar</Text>
-                    </TouchableOpacity>
+              if(produto.qtdEstoque > 0) {
+                return (
+                  <View style={styles.container} key={produto.id}>
+                    <View style={styles.segundoContainer}>
+                      <Image
+                        style={styles.image}
+                        source={{uri: produto.urlFoto}}></Image>
+                      <Text style={styles.Texto}>{produto.nome}</Text>
+                      <Text style={styles.subTexto}>{produto.descricao}</Text>
+                      <Text style={styles.textoPreco}>
+                        R$ {produto.precoUnitario.toFixed(2)}
+                      </Text>
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                          handleComprar(produto);
+                        }}>
+                        <Text style={styles.buttonText}>Comprar</Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
-                </View>
-              );
+                );
+              }
+              return (null);
             })}
-
-
       </ScrollView>
     </SafeAreaView>
   );
