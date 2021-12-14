@@ -7,25 +7,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import MinhaConta from './pages/MinhaConta/Home';
 import CadastroUsuario from './pages/CadastroUsuario/cadastroUsuario';
+import Carrinho from './pages/Carrinho/Carrinho';
 import Login from './pages/Login/login';
 import Header from './components/Header';
 import Home from './pages/Home/Home';
 
 const Stack = createNativeStackNavigator();
-
-
-
-function Carrinho({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Carrinho - Trocar pela página criada</Text>
-      <Button
-        title="Voltar para Home"
-        onPress={() => navigation.navigate('Home')}
-      />
-    </View>
-  );
-}
 
 function Routes() {
   const {handleSetCredenciais, handleSetCredenciaisCarregadas} = useContext(CredenciaisContext);
