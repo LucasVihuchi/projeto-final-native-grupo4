@@ -2,7 +2,6 @@ import React, {useState, useContext, useEffect} from 'react';
 import {
   ScrollView,
   View,
-  Button,
   Text,
   TouchableOpacity,
   Alert,
@@ -49,12 +48,11 @@ function Carrinho({navigation}) {
         setInformacoes(response.data);
       })
       .catch(error => {
-        console.log('CEP inválido');
+        Alert.alert('CEP inválido');
       });
   };
 
   const handlingCep = (text) => {
-    console.log(text);
     setCep(text);
   };
 
@@ -112,7 +110,6 @@ function Carrinho({navigation}) {
 
   function finalizarPedido() {
     carrinho.map(pedido => {
-      console.log(pedido.id);
       try {
         const response = api.put(
           `api/v1/pedidos/${pedido.id}/finalizar`,
