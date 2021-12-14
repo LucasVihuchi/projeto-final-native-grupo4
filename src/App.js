@@ -4,10 +4,10 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import theme from './pages/CadastroUsuario/checkStyles';
 import ContextoCredenciais from './context/credenciais';
 import Routes from './Routes';
+import { LogBox } from 'react-native';
 
 const App = () => {
-  console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
-  console.disableYellowBox = true;
+  LogBox.ignoreAllLogs();
   return (
     <ContextoCredenciais>
       <PaperProvider theme={theme}>

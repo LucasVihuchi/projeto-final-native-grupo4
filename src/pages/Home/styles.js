@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     paddingHorizontal: 16,
     paddingVertical: 32,
+    borderRadius: 12
   },
 
   button: {

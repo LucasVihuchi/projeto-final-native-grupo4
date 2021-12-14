@@ -43,7 +43,6 @@ const Home = ({navigation}) => {
     } else {
       let carrinho = await getCarrinho();
       if (carrinho.length === 0) {
-        console.log('Criar');
         criaPedido(produto);
       } else {
         buscaProdutoCarrinho(carrinho, produto);
